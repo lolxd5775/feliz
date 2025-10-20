@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>🎉 ¡Feliz Cumpleaños Kevin! 🎂</title>
+<style>
+  :root{
+    --bg:#f0f8ff;
+    --card:#ffffff;
+    --accent:#ff6b6b;
+    --shadow: 0 10px 30px rgba(10,10,20,0.12);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Poppins", Arial, sans-serif;
+    background: linear-gradient(135deg, #c9f0ff 0%, #fff7fb 100%);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    color:#222;
+  }
+
+  .scene{
+    width:100%;
+    max-width:900px;
+    display:grid;
+    grid-template-columns: 420px 1fr;
+    gap:28px;
+    align-items:center;
+  }
+
+  .envelope {
+    perspective:1200px;
+    width:420px;
+    margin:auto;
+  }
+
+  .card {
+    width:100%;
+    height:300px;
+    position:relative;
+    transform-style:preserve-3d;
+    transition: transform 700ms cubic-bezier(.2,.9,.3,1);
+    cursor:pointer;
+  }
+
+  .card .inside {
+    position:absolute;
+    inset:0;
+    background:var(--card);
+    border-radius:14px;
+    box-shadow: var(--shadow);
+    padding:24px;
+    transform: translateZ(-1px);
+    overflow:hidden;
+  }
+
+  .card .flap {
+    position:absolute;
+    inset:0;
+    border-radius:14px;
+    background: linear-gradient(180deg,#ffecd3 0%, #fff 60%);
+    box-shadow: var(--shadow);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transform-origin: top center;
+    transform: rotateX(0deg);
+    transition: transform 700ms cubic-bezier(.2,.9,.3,1);
+    backface-visibility: hidden;
+  }
+
+  .card .flap::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(600px 200px at 10% 20%, rgba(255,255,255,0.25), transparent 30%);
+    border-radius:14px;
+    pointer-events:none;
+  }
+
+  .front-text{
+    text-align:center;
+    padding:18px;
+  }
+  .front-text h2{
+    margin:0 0 6px;
+    font-size:22px;
+    letter-spacing:0.6px;
+  }
+  .front-text p{
+    margin:0;
+    font-size:14px;
+    color:#555;
+  }
+
+  .envelope.opened .card{
+    transform: translateY(-8px);
+  }
+  .envelope.opened .flap{
+    transform: rotateX(-180deg) translateY(-8px);
+  }
+
+  .inside .letter {
+    display:flex;
+    gap:14px;
+    align-items:center;
+    height:100%;
+  }
+  .letter .message{
+    flex:1;
+  }
+  .letter h3{
+    margin:0 0 8px 0;
+    font-size:20px;
+    color:var(--accent);
+  }
+  .letter p{
+    margin:0 0 12px 0;
+    color:#333;
+    line-height:1.35;
+  }
+  .letter .small{
+    font-size:13px;
+    color:#666;
+  }
+
+  .reveal {
+    background: #ffffffcc;
+    border-radius:14px;
+    box-shadow: var(--shadow);
+    padding:18px;
+    min-height:300px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    transition: transform 600ms ease, opacity 450ms ease;
+    transform-origin:center;
+    opacity:0.0;
+    transform: translateY(18px) scale(.98);
+  }
+
+  .envelope.opened + .reveal {
+    opacity:1;
+    transform: translateY(0) scale(1);
+  }
+
+  .reveal h2{
+    margin:0;
+    font-size:22px;
+    color:#222;
+  }
+  .reveal .photo {
+    width:100%;
+    max-width:420px;
+    border-radius:12px;
+    overflow:hidden;
+    background:#eee;
+  }
+  .reveal img{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+
+  .actions{
+    display:flex;
+    gap:10px;
+    margin-top:6px;
+  }
+
+  .btn{
+    border:0;
+    background:var(--accent);
+    color:white;
+    padding:8px 12px;
+    border-radius:8px;
+    box-shadow: 0 6px 16px rgba(255,107,107,0.15);
+    cursor:pointer;
+    font-weight:600;
+  }
+  .btn.secondary{
+    background:#f3f3f3;
+    color:#333;
+    box-shadow:none;
+  }
+
+  @media (max-width:900px){
+    .scene{ grid-template-columns:1fr; }
+    .envelope, .reveal { width:100%; }
+    .card{ height:260px; }
+    .reveal{ min-height:220px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- AUDIO -->
+<audio id="birthdaySong" preload="auto">
+  <source src="felizcumple.mp3" type="audio/mpeg">
+</audio>
+
+<div class="scene">
+
+  <div class="envelope" id="envelope">
+    <div class="card" id="card">
+      <div class="flap">
+        <div class="front-text">
+          <h2>Para Kevin 🎁</h2>
+          <p>Haz clic para abrir tu carta</p>
+        </div>
+      </div>
+
+      <div class="inside">
+        <div class="letter">
+          <div class="message">
+            <h3>¡Feliz cumpleaños, Kevin! 🎂</h3>
+            <p>Hoy celebro tu vida, tu alegría y todas las risas que compartimos.  
+            Que este nuevo año te llene de éxitos, amor y momentos inolvidables.  
+            ¡Nunca cambies, eres increíble! 🙌</p>
+            <p class="small">Con cariño, tu mejor amigo 💙</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <h2>🎉 ¡Te mereces lo mejor, Kevin! 🎉</h2>
+    <div class="photo">
+      <img src="kevin-cumple.jpg" alt="Cupcake de cumpleaños con velas" />
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="closeBtn">Cerrar carta</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const envelope = document.getElementById('envelope');
+  const card = document.getElementById('card');
+  const reveal = document.querySelector('.reveal');
+  const closeBtn = document.getElementById('closeBtn');
+  const song = document.getElementById('birthdaySong');
+
+  function openCard() {
+    envelope.classList.add('opened');
+    song.currentTime = 0;
+    song.play().catch(()=>{});
+  }
+
+  function closeCard() {
+    envelope.classList.remove('opened');
+    song.pause();
+  }
+
+  card.addEventListener('click', openCard);
+  closeBtn.addEventListener('click', closeCard);
+</script>
+
+</body>
+</html>
